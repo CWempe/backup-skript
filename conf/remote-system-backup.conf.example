@@ -1,0 +1,40 @@
+#!/bin/bash
+# ./remote-system-backup.conf (root:root , 640)
+#
+####################################################################################################
+
+# Auflistung aller verwendeten Variablen mit Erlaeuterung:
+#
+# FROMNAME      = vollstaendiger Name des Absenders, der im Mailclient angezeigt wird
+# FROMMAIL      = Absenderadresse
+# FROM          = Kombination aus den beiden obenren Variablen im Syntax fuer den Mailheader
+# SUBJECTMAIN   = Betreff der Mails
+# SUBJECTSUC    = Betreff bei erfolgreichen Meldungen
+# SUBJECTERR    = Betreff bei Fehlermeldungen
+# GPATH         = Globales Verzeichnis fuer Backups und Logs. Kann von RCONFIG ueberschrieben werden.
+# SYSTEM        = Gibt das System des Servers an, um spezielle Pfade zu beruecksichtigen
+# ADMINMAIL     = Mailadresse, an die Fehlernachrichten geschickt werden
+# DEBUG         = gibt an ob der Debug-Modus durchgefuehrt werden soll
+#
+
+
+# Setzen der temporaeren Parameter
+####################################################################################################
+
+ADMINMAIL="christoph@wempe.net"
+FROMNAME="Backup-Skript (htpc)"
+FROMMAIL="backupskript@htpc.wempe.net"
+FROM="\"$FROMNAME\" <$FROMMAIL>"
+# Achtung: SUBJECTxxx wird spaeter nochmal definiert, um den RHOST einzubinden
+SUBJECTMAIN="[BACKUP-Skript]"
+SUBJECTSUC="$SUBJECTMAIN erfolgreich"
+SUBJECTERR="$SUBJECTMAIN Fehler"
+GPATH="/srv/backup/rsync"
+
+
+# stezielle Serversysteme (optional):
+#  QNAP, (openELEC, Raspbian, enigma2)
+#SYSTEM="ubuntu"
+
+# wird noch nicht unterstuetzt
+DEBUG=no

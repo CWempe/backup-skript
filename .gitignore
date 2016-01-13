@@ -1,0 +1,3 @@
+# exclude files in config folder except conf.example and 
+conf/*
+!*.conf.example
