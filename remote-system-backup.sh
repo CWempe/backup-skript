@@ -10,30 +10,6 @@
 # Der RSYNC wird nicht ausgefuehrt (Befehlsausgabe per echo)
 # Aufrufbar durch: ./remote-system-backup.sh -d "configfile"
 #
-# Stand: 2008-01-31rg  , Anpassungen Olaf
-# Stand: 2008-08-18op  , Korrektur des Hard-Link-Aufrufs - Tippfehler bei Ziel
-# Stand: 2008-08-22op  , Erweiterung Angabe SSH-Typ ueber config mit Pruefung
-# Stand: 2008-09-02rg  , Korrektur des Log- und Stat-Datei Speicherverfahrens
-# Stand: 2008-09-19op  , Kleine Anpassungen am Layout
-# Stand: 2008-10-08rg  , Anpassung Log- und Stat- Dateien Kontrolle
-# Stand: 2009-05-18op  , Anpassung von nail nach mail wegen SUSE :-(
-# Stand: 2009-06-18sp  , LogPfad korrekt anlegen
-# Stand: 2009-07-17rg  , Korrigieren des Rotieren der Stat-/Log-Dateien
-# Stand: 2011-11-02op  , Ergaenzung der Ausgabe um eine Start- und Endzeit
-# Stand: 2013-01-08op  , Diverse Anpassungen bezueglich Pfadstrukturen und Includes
-# Stand: 2014-12-05op  , Ergaenzungen Skriptstart
-# Stand: 2015-02-08op  , $RUSER hinzugefügt; rsync-Parameter 'L' eingefügt; 
-#                        mail-Befehl angepasst (Absender mit vollstaendigem Namen)
-# Stand: 2015-06-01cw  , Anpassung an openELEC, damit and benutzerdefinierter Pfad
-#                        für rsync auf dem Remotesystem angegeben werden kann
-# Stand: 2015-06-03cw  , Optimierung und Anpüassung fuer verschiedene Systeme
-#                        - benutze busybox für manche Befehle (find, wc) (wegen QNAP)
-#                        - benutze sendmail statt mail (wegen QNAP)
-#                        - optimierung des Codes für Debug- und Mail-Ausgaben (FROM.., SUBJECT..)
-#                        - Unterstuetzung für IP (RIP) falls Name nicht aufgeloest werden kann
-# Stand: 2015-06-04cw  , CTIME hinzugefuegt
-#                      , Auslagerung der lokalen spezifischen Config in LCONFIG (Umbenennung von CONFIG in RCONFIG)
-#                      , Unterstuetzung von GPATH um den Backup-Pfad global fuer alle Systeme anzugeben (kann einzeln ueberschrieben werden)
 ####################################################################################################
 
 # Auflistung aller verwendeten Variablen mit Erlaeuterung:
