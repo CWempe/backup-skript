@@ -1,5 +1,5 @@
 #!/bin/bash
-# ./sample.conf (root:root, 640)
+# ./qnap.conf (root:root, 640)
 
 # Konfigurationsdatei fuer "remote-system-backup.sh"
 # Angepasste Version fuer qnap
@@ -26,11 +26,11 @@
 ANZAHLBACKUPS=30
 SSHTYPE=2
 DEBUG=no
-MAIL="user@example.com"
-RHOST="server2"
-RPATH="/etc /root /var/log"
-#RIP="192.168.0.1"
-RUSER="root"
+MAIL="admin@example.com"
+RHOST="nas1"
+RPATH=" /Apps /etc /root /share/homes /share/MD0_DATA/.qpkg /var/log"
+#RIP="192.168.1.11"
+RUSER="admin"
 #RRSYNC="/usr/bin/rsync"
 #LPATH="/srv/backup/rsync/$RHOST"
 #LOG="$LPATH/log"
@@ -39,3 +39,4 @@ RUSER="root"
 
 return
 - lost+found
+- /var/log/samba/var/var
