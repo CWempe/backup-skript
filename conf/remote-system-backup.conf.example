@@ -21,9 +21,9 @@
 # Setzen der temporaeren Parameter
 ####################################################################################################
 
-ADMINMAIL="christoph@wempe.net"
-FROMNAME="Backup-Skript (htpc)"
-FROMMAIL="backupskript@htpc.wempe.net"
+ADMINMAIL="admin@example.com"
+FROMNAME="Backup-Skript (server1)"
+FROMMAIL="backupskript@server1.example.com"
 FROM="\"$FROMNAME\" <$FROMMAIL>"
 # Achtung: SUBJECTxxx wird spaeter nochmal definiert, um den RHOST einzubinden
 SUBJECTMAIN="[BACKUP-Skript]"
