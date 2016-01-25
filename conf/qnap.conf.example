@@ -40,3 +40,8 @@ RUSER="admin"
 return
 - lost+found
 - /var/log/samba/var/var
+- /etc/krb5.conf
+- /etc/rcK.d/K49bt_scheduler
+- /etc/rcS.d/S62GQ
+- /root/.BitTornado
+- /share/MD0_DATA/.qpkg/Optware/root/.BitTornado
