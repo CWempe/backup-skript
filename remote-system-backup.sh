@@ -678,10 +678,10 @@ fi
 
 for PFADE in "${RPATH[@]}" ; do
     if [ $DEBUG == "yes" ] ; then
-	echo -e "$RSYNC -R -avPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e \"$SSH\" \
+	echo -e "$RSYNC -R -ahvPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e \"$SSH\" \
 	--include-from=$RCONFIG \"$RUSER@$RIP\":\"$PFADE\" \"$LPATH/backup.0/\" > $LOG/rsync.log.0 \n "
 	else
-	$RSYNC -R -avPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e "$SSH" \
+	$RSYNC -R -avhPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e "$SSH" \
 	--include-from=$RCONFIG "$RUSER@$RIP":"$PFADE" "$LPATH/backup.0/" > $LOG/rsync.log.0
     fi
 done
