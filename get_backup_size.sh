@@ -9,21 +9,6 @@ DIR="$1"
 
 cd "$DIR"
 
-
 echo "du -hc -d 0 "`ls -trx --hide=log | tr '\n' ' '` | sh
 
-
-#ls -lAtr $DIR | grep " backup." | awk '{printf $9." "}' | cut -d / -f 1
-#FOLDERS=`ls -lAtr $DIR | grep " backup." | awk '{printf $9." "}' | cut -d / -f 1`
-
-#if [ "$FOLDERS" = "" ]
-#then
-#  echo "No backup-folders found! Wrong drirectory?"
-#else
-  #ls -lAtr | grep " backup." | awk '{printf $9." "}' | cut -d / -f 1 | du -hcl --max-depth=0
-#  du -hc --max-depth=0 $FOLDERS
-#fi
-
 exit 0
-
-
