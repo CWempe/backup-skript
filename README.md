@@ -41,3 +41,6 @@ example output:
 106M    backup.0
 331G    insgesamt
 ```
+
+You might need to install full versions of ls and du on your qnap via Entware-ng.
+BusyBox does not support all necessary options.
