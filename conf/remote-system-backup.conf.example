@@ -14,6 +14,7 @@
 # GPATH         = Globales Verzeichnis fuer Backups und Logs. Kann von RCONFIG ueberschrieben werden.
 # SYSTEM        = Gibt das System des Servers an, um spezielle Pfade zu beruecksichtigen
 # ADMINMAIL     = Mailadresse, an die Fehlernachrichten geschickt werden
+# BWLIMIT       = Bandbreitenlimit in KBytes/s
 # DEBUG         = gibt an ob der Debug-Modus durchgefuehrt werden soll
 #
 
@@ -35,6 +36,8 @@ GPATH="/srv/backup/rsync"
 # stezielle Serversysteme (optional):
 #  QNAP, (openELEC, Raspbian, enigma2)
 #SYSTEM="ubuntu"
+
+#BWLIMIT="12500"
 
 # wird noch nicht unterstuetzt
 DEBUG=no

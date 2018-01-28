@@ -14,6 +14,7 @@
 # RHOST         = Netzwerkname des PCs von dem Daten gesichert werden sollen
 # RIP           = IP des PCs von dem Daten gesichert werden sollen (optional, falls DNS-Aufloesung nicht vorhanden)
 # RUSER         = Gibt den User an, der auf dem Remotesystem verwendet werden soll (optional, default "root")
+# BWLIMIT       = Bandbreitenlimit in KBytes/s
 # RRSYNC        = Pfad zu rsync auf dem Remotesystem (optional)
 # RPATH         = Pfad zum Verzeichnis das gesichert werden soll (ohne "/" zum Ende)
 # LPATH         = Pfad zum Backup-Ordner auf dem Backup-Server (ohne "/" zum Ende) (optional)
@@ -31,6 +32,7 @@ RHOST="nas1"
 RPATH=" /Apps /etc /root /share/homes /share/MD0_DATA/.qpkg /var/log"
 #RIP="192.168.1.11"
 RUSER="admin"
+#BWLIMIT="12500"
 #RRSYNC="/usr/bin/rsync"
 #LPATH="/srv/backup/rsync/$RHOST"
 #LOG="$LPATH/log"

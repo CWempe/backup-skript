@@ -220,6 +220,22 @@ fi
 
 ####################################################################################################
 
+if [ -z "$BWLIMIT" -a $BWLIMIT -gt 0 ] ; then
+    MESSAGE="Kein Bandbreitenlimit angegeben!"
+    if [ $DEBUG == "yes" ] ; then
+        echo -e "$MESSAGE"
+    fi
+    BWLIMITCMD=""
+else
+    MESSAGE="Bandbreitenlimit gesetzt auf $BWLIMIT"
+    if [ $DEBUG == "yes" ] ; then
+        echo -e "$MESSAGE"
+    fi
+    BWLIMITCMD="--bwlimit=$BWLIMIT"
+fi
+
+####################################################################################################
+
 if [ -z "$MAIL" ] ; then
     MESSAGE="Falsche MAIL-Angabe! Skript wurde nicht ausgefuehrt!"
     if [ $DEBUG == "yes" ] ; then
@@ -678,10 +694,10 @@ fi
 
 for PFADE in "${RPATH[@]}" ; do
     if [ $DEBUG == "yes" ] ; then
-	echo -e "$RSYNC -R -ahvPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e \"$SSH\" \
+	echo -e "$RSYNC -R -ahvPL --whole-file $BWLIMITCMD --delete --delete-excluded $RSYNCPATH --stats -e \"$SSH\" \
 	--include-from=$RCONFIG \"$RUSER@$RIP\":\"$PFADE\" \"$LPATH/backup.0/\" > $LOG/rsync.log.0 \n "
 	else
-	$RSYNC -R -avhPL --whole-file --delete --delete-excluded $RSYNCPATH --stats -e "$SSH" \
+	$RSYNC -R -avhPL --whole-file --delete $BWLIMITCMD --delete-excluded $RSYNCPATH --stats -e "$SSH" \
 	--include-from=$RCONFIG "$RUSER@$RIP":"$PFADE" "$LPATH/backup.0/" > $LOG/rsync.log.0
     fi
 done
