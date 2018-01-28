@@ -220,18 +220,27 @@ fi
 
 ####################################################################################################
 
-if [ -z "$BWLIMIT" -a $BWLIMIT -gt 0 ] ; then
+if [ -z "$BWLIMIT" ] ; then
     MESSAGE="Kein Bandbreitenlimit angegeben!"
     if [ $DEBUG == "yes" ] ; then
         echo -e "$MESSAGE"
     fi
     BWLIMITCMD=""
 else
-    MESSAGE="Bandbreitenlimit gesetzt auf $BWLIMIT"
-    if [ $DEBUG == "yes" ] ; then
-        echo -e "$MESSAGE"
+    if [ $BWLIMIT -gt 0 ]
+    then
+        MESSAGE="Bandbreitenlimit gesetzt auf $BWLIMIT"
+        if [ $DEBUG == "yes" ] ; then
+            echo -e "$MESSAGE"
+        fi
+        BWLIMITCMD="--bwlimit=$BWLIMIT"
+    else
+        MESSAGE="Bandbreitenlimit ungueltig: $BWLIMIT"
+        if [ $DEBUG == "yes" ] ; then
+            echo -e "$MESSAGE"
+        fi
+        exit 5
     fi
-    BWLIMITCMD="--bwlimit=$BWLIMIT"
 fi
 
 ####################################################################################################
