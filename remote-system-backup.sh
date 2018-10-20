@@ -287,8 +287,8 @@ fi
 
 # Betreff der Mails erneut setzen, da jetzt RHOST definiert ist
 SUBJECTMAIN="[BACKUP-Skript] ($RHOST)"
-SUBJECTSUC="$SUBJECTMAIN erfolgreich"
-SUBJECTERR="$SUBJECTMAIN Fehler"
+SUBJECTSUC="$SUBJECTMAIN ✔"
+SUBJECTERR="$SUBJECTMAIN ✘"
 
 
 
