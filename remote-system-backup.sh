@@ -286,9 +286,8 @@ if [ -z "$RHOST" ] ; then
 fi
 
 # Betreff der Mails erneut setzen, da jetzt RHOST definiert ist
-SUBJECTMAIN="[BACKUP-Skript] ($RHOST)"
-SUBJECTSUC="$SUBJECTMAIN erfolgreich"
-SUBJECTERR="$SUBJECTMAIN Fehler"
+SUBJECTSUC="[BACKUP-Skript] ✔ ($RHOST) erfolgreich"
+SUBJECTERR="[BACKUP-Skript] ✘ ($RHOST) Fehler"
 
 
 
@@ -609,7 +608,6 @@ if ([ $LOGCOUNTER -gt $ANZAHLBACKUPS ] || [ $STATCOUNTER -gt $ANZAHLBACKUPS ]) ;
     exit 7
 fi
 
-
 if [ $DEBUG == "yes" ] ; then
     echo -e "Log-Verzeichnis kann bereinigt werden...\n"
 fi
@@ -742,6 +740,9 @@ if [ $DEBUG == "yes" ] ; then
     echo "Die Logeintrage werden per Email versendet!"
     SUBJECT="$SUBJECTSUC"
     MESSAGE="##### DEBUG-Durchlauf #####\n\n$MESSAGE"
+    echo -e "\n### MAIL ###"
+    echo -e "echo -e \"From: $FROM\nSubject: $SUBJECT\n\n ##MESSAGE##\" | $SENDMAIL $MAIL"
+    echo -e "### MAIL ###\n"
     echo -e "From: $FROM\nSubject: $SUBJECT\n\n$MESSAGE" | $SENDMAIL $MAIL
 else
     SUBJECT="$SUBJECTSUC"
