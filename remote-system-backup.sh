@@ -286,9 +286,8 @@ if [ -z "$RHOST" ] ; then
 fi
 
 # Betreff der Mails erneut setzen, da jetzt RHOST definiert ist
-SUBJECTMAIN="[BACKUP-Skript] ($RHOST)"
-SUBJECTSUC="$SUBJECTMAIN ✔"
-SUBJECTERR="$SUBJECTMAIN ✘"
+SUBJECTSUC="[BACKUP-Skript] ✔ ($RHOST) erfolgreich"
+SUBJECTERR="[BACKUP-Skript] ✘ ($RHOST) Fehler"
 
 
 
@@ -296,9 +295,36 @@ SUBJECTERR="$SUBJECTMAIN ✘"
 
 if [ -z "$RIP" ] ; then
     if [ $DEBUG == "yes" ] ; then
-	    echo "Kein RIP angegeben! Verwende $RHOST."
+        echo "Kein RIP angegeben! Verwende $RHOST."
     fi
     RIP="$RHOST"
+fi
+
+
+####################################################################################################
+
+if [ -z "${HWADDR}" ] ; then
+    if [ $DEBUG == "yes" ] ; then
+        echo "Keine MAC-Adresse angegeben."
+    fi
+    WOL="no"
+else
+    if [[ "$HWADDR" =~ ^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$ ]] ; then
+        if [ $DEBUG == "yes" ] ; then
+                echo "HWADDR ist korrekt! $HWADDR."
+        fi
+        WOL="yes"
+    else
+        MESSAGE="Ungueltige MAC-Adresse angegeben: ${HWADDR}"
+        if [ $DEBUG == "yes" ] ; then
+            echo -e "$MESSAGE"
+        else
+            SUBJECT="$SUBJECTERR"
+            echo -e "From: $FROM\nSubject: $SUBJECT\n\n$MESSAGE" | $SENDMAIL $ADMINMAIL
+            echo -e "From: $FROM\nSubject: $SUBJECT\n\n$MESSAGE" | $SENDMAIL $MAIL
+        fi
+        exit 5
+    fi
 fi
 
 ####################################################################################################
@@ -414,6 +440,18 @@ if [ $(/usr/bin/id -u) != 0 ]; then
         fi
         exit 5
     fi
+fi
+
+
+# Server ggf. per Wake-on-LAN aufwecken
+####################################################################################################
+
+if [ "${WOL}" == "yes" ] ; then
+    if [ $DEBUG == "yes" ] ; then
+        echo "Server per Wake-on-LAN aufwecken und einen Moment warten."
+    fi
+    wakeonlan ${HWADDR}
+    sleep 60
 fi
 
 
@@ -609,7 +647,6 @@ if ([ $LOGCOUNTER -gt $ANZAHLBACKUPS ] || [ $STATCOUNTER -gt $ANZAHLBACKUPS ]) ;
     exit 7
 fi
 
-
 if [ $DEBUG == "yes" ] ; then
     echo -e "Log-Verzeichnis kann bereinigt werden...\n"
 fi
@@ -742,6 +779,9 @@ if [ $DEBUG == "yes" ] ; then
     echo "Die Logeintrage werden per Email versendet!"
     SUBJECT="$SUBJECTSUC"
     MESSAGE="##### DEBUG-Durchlauf #####\n\n$MESSAGE"
+    echo -e "\n### MAIL ###"
+    echo -e "echo -e \"From: $FROM\nSubject: $SUBJECT\n\n ##MESSAGE##\" | $SENDMAIL $MAIL"
+    echo -e "### MAIL ###\n"
     echo -e "From: $FROM\nSubject: $SUBJECT\n\n$MESSAGE" | $SENDMAIL $MAIL
 else
     SUBJECT="$SUBJECTSUC"
