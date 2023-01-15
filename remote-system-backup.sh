@@ -737,16 +737,37 @@ fi
 if [ $DEBUG == "yes" ] ; then
     echo -e "Backup startet!\n"
 fi
-
-for PFADE in "${RPATH[@]}" ; do
+if [ -f $LPATH/backup.0 ] ; then
+    rm -f $LPATH/backup.0
+else
     if [ $DEBUG == "yes" ] ; then
-	echo -e "$RSYNC -R -ahvPL --whole-file $BWLIMITCMD --delete --delete-excluded $RSYNCPATH --stats -e \"$SSH\" \
-	--include-from=$RCONFIG \"$RUSER@$RIP\":\"$PFADE\" \"$LPATH/backup.0/\" > $LOG/rsync.log.0 \n "
-	else
-	$RSYNC -R -avhPL --whole-file --delete $BWLIMITCMD --delete-excluded $RSYNCPATH --stats -e "$SSH" \
-	--include-from=$RCONFIG "$RUSER@$RIP":"$PFADE" "$LPATH/backup.0/" > $LOG/rsync.log.0
+        echo "Keine Datei \"$LPATH/backup.0\" im Pfad"
     fi
+fi
+
+# Erstellen der korrekten Systax der Form
+# remotehost:/src1 remotehost:/src2 ....
+# Alterntiv koennte man auch ein --old-args zum rsync hinzufuegen, dann wuerde die bis 01.09.2022
+# funktionierende Version weiterlaufen. Es wurde sich aber fuer diese version entschieden.
+# Achtung Eine verarbeitung von Leerzeichen in den angegebenen Pfaden ist technisch durch die
+# Uebergabe aus der Shell nicht moeglich.
+PFADE=""
+PFADE1=""
+for PFADE1 in $RPATH ; do
+    PFADE="$PFADE $RUSER@$RIP:$PFADE1"
 done
+
+
+# Durchfuehrung RSYNC
+if [ $DEBUG == "yes" ] ; then
+    echo -e "$RSYNC -R -a -v -P -h $RSYNCATTR --whole-file --delete --delete-excluded --stats -e \"$SSH\" \
+    --include-from=$RCONFIG $PFADE "$LPATH/backup.0/" > $LOG/rsync.log.0 2> $LOG/rsync.errorlog.0 \n"
+    RSYNCELEVEL=0
+else
+    $RSYNC -R -a -v -P -h $RSYNCATTR --whole-file --delete --delete-excluded --stats -e "$SSH" \
+    --include-from=$RCONFIG $PFADE "$LPATH/backup.0/" > $LOG/rsync.log.0 2> $LOG/rsync.errorlog.0
+    RSYNCELEVEL=$?
+fi
 
 if [ $DEBUG == "yes" ] ; then
     echo -e "Backup beendet!\n"
