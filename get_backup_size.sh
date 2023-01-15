@@ -9,6 +9,6 @@ DIR="$1"
 
 cd "$DIR"
 
-echo "du -hc -d 0 "`ls -trx --hide=log | tr '\n' ' '` | sh
+echo "du -hc -d 0 "`ls -trx | tr '\n' ' ' | tr 'log' ' '` | sh
 
 exit 0
