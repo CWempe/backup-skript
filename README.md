@@ -2,12 +2,14 @@
 
 ## get_backup_size.sh
 
-to get the size of each backup use this command:
+To get the size of each backup use this command:
+
 ```bash
 ./get_backup_size.sh /mybackupfolder/hostname
 ```
 
-example output:
+Example output:
+
 ```
 289G    backup.29
 2,3G    backup.28
