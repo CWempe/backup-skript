@@ -46,3 +46,17 @@ Example output:
 
 You might need to install full versions of ls and du on your qnap via Entware-ng.
 BusyBox does not support all necessary options.
+
+## show_backup_sizes.sh
+
+To get a visual of the size of all backup jobs you can run this script.
+Firt it checks the hosts in the backup target dir and asks wich one you want to see.
+Then it reads the values from the .stat files and displays the total size and the diff size of each backup job as a colorful graph.
+
+You need the python module `termgraph` to use this.
+
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```

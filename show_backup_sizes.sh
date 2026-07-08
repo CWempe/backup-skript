@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Dieses Script zeigt die Groesse der inkrementellen Backups eines Hosts an
 # Dazu werden die rsync.log.*-Dateien ausgewertet.
 #
@@ -11,6 +11,8 @@
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Ein " um das Syntaxhighlighting wieder zu korrigieren
 LCONFIG="$WORKDIR/conf/remote-system-backup.conf"
+TERMGRAPH="$WORKDIR/.venv/bin/termgraph"
+
 
 # Pruefen ob lokale Config vorhanden ist
 if [ ! -f "$LCONFIG" ]
@@ -106,9 +108,9 @@ else
     cd "$DIR"
 fi
 
-if ! command -v termgraph &> /dev/null; then
-    echo "Fehler: termgraph ist nicht installiert. Bitte mit 'python3 -m pip install termgraph' installieren." >&2
-    echo "Quelle: https://github.com/EduardKononov/termgraph" >&2
+if [ ! -x "$TERMGRAPH" ]; then
+    echo "Fehler: termgraph ist nicht installiert"
+    echo "Bitte ausführen: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt"
     exit 1
 fi
 
@@ -163,7 +165,7 @@ esac
 termgraph_title="Host:${HOST}"
 
 # Create termgraph-command
-termgraph_cmd=(termgraph)
+termgraph_cmd=(${TERMGRAPH})
 termgraph_cmd+=(${termgraph_arg_width})
 termgraph_cmd+=(${termgraph_arg_stacked})
 termgraph_cmd+=(--suffix)

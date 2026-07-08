@@ -1,0 +1,2 @@
+colorama==0.4.6
+termgraph==0.7.6
